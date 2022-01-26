@@ -6,20 +6,25 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"io"
 )
 
 func main() {
 
 	port := getPort()
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", printWSDL)
 
 	fmt.Printf("Try to start server on port: %s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func printWSDL(w http.ResponseWriter, r *http.Request) {
 	printlog(r)
-	fmt.Fprintf(w, "Hello %q", r.URL.Path)
+	f, err := os.Open("xml/vvd.wsdl")
+	if err != nil {
+		log.Fatal(err)
+	}
+	io.Copy(w, f)
 }
 
 func getPort() string {
@@ -37,3 +42,4 @@ func printlog(r *http.Request) {
 	p := r.URL.Path
 	fmt.Fprintf(os.Stdout, "[%s]\t%s\t%s\t%s\n", t, m, h, p)
 }
+

@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:m="http://www.rt-eu.ru/med/hc/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="HouseCallSoapService" targetNamespace="http://www.rt-eu.ru/med/hc/">
+    <types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:m="http://www.rt-eu.ru/med/hc/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.rt-eu.ru/med/hc/" version="1.0">
+            <xs:simpleType name="guid">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">The representation of a GUID, generally the id of an element.</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType name="PatientError">
+                <xs:annotation>
+                    <xs:documentation>Ошибка</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="errorDetail" type="m:PatientErrorDetail" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PatientErrorDetail">
+                <xs:sequence>
+                    <xs:element name="errorCode">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:int">
+                                <xs:enumeration value="0">
+                                    <xs:annotation>
+                                        <xs:documentation>ОК</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="1">
+                                    <xs:annotation>
+                                        <xs:documentation>по запросу данных не найдено</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="2">
+                                    <xs:annotation>
+                                        <xs:documentation>внутренняя ошибка системы</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="3">
+                                    <xs:annotation>
+                                        <xs:documentation>истекло время ожидания сессии</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="4">
+                                    <xs:annotation>
+                                        <xs:documentation>найдено более одного пациента с таким данными</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" name="errorMessage" nillable="false" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Текстовое описание ошибки</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ErrorDetail">
+                <xs:annotation>
+                    <xs:documentation>Ошибка</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="errorDetail" type="m:ErrorDetailType" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ErrorDetailType">
+                <xs:annotation>Информация об ошибке</xs:annotation>
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="errorCode">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:int">
+                                <xs:enumeration value="0">
+                                    <xs:annotation>
+                                        <xs:documentation>ОК</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="1">
+                                    <xs:annotation>
+                                        <xs:documentation>по запросу данных не найдено</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="2">
+                                    <xs:annotation>
+                                        <xs:documentation>внутренняя ошибка системы</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="3">
+                                    <xs:annotation>
+                                        <xs:documentation>истекло время ожидания в рамках сессии</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" name="errorMessage" nillable="false" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Описание ошибки</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetValidatePatientInfoRequest">
+                <xs:annotation>
+                    <xs:documentation>Идентификация пациента</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" required="true" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element maxOccurs="1" minOccurs="1" name="Patient_Data" required="true">
+                            <xs:annotation>
+                                <xs:documentation>Данные о пациенте</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="1" name="OMS_Number" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Номер полиса ОМС пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="OMS_Series" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Серия полиса ОМС пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="SNILS" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>СНИЛС пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="1" name="First_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Имя пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="1" name="Last_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Фамилия пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="Middle_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Отчество пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="1" name="Birth_Date" type="xs:date">
+                                        <xs:annotation>
+                                            <xs:documentation>Дата рождения пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="1" name="Sex" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Пол пациента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element maxOccurs="1" minOccurs="1" name="Applicant_Data" required="true">
+                            <xs:annotation>
+                                <xs:documentation>Данные о заявителе</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="Last_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Фамилия заявителя</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="First_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Имя заявителя</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="Middle_Name" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Отчество заявителя</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="SNILS" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>СНИЛС</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="1" name="Mobile_Phone" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Телефон</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="Email" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Адрес электронной почты заявителя</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Cod_Kladr_Fias" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Код КЛАДР. Классификационный код адресного объекта по классификатору КЛАДР 4.0, исключая признак актуальности записи из справочника ФИАС</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Address_Str" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Адресная строка</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Adr_Region" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Регион</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Area" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Район</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_City" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Город</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_City_Area" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Внутригородской район</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Place" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Населенный пункт</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Adr_Street" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Улица</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Additional_Area" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Доп. территория</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Additional_Street" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Улица на доп.  территории</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_House" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Дом</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Housing" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Корпус</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Structure" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Строение</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Adr_Apartment" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Квартира</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Adr_Post_Index" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Почтовый индекс</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Reason_Task" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Причина вызова</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetValidatePatientInfoResponse">
+                <xs:annotation>
+                    <xs:documentation>Результат идентификации пациента</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Patient_Id" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор пациента в РМИСИС</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="MO_Id" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор структурного подразделения МО</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="MO_OID" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Уникальный идентификатор структурного подразделения медицинской организации(OID)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="MO_Name" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Наименование МО</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="MO_Address" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Адрес МО</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="MO_Phone" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Контактный телефон МО (регистратура)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Resource_Id" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор ресурса</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Resource_Name" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Наименование ресурса</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element maxOccurs="1" minOccurs="0" name="Error" type="m:PatientError" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetHouseCallScheduleInfoRequest">
+                <xs:annotation>
+                    <xs:documentation>Получение расписания вызовов выбранного медицинского специалиста</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Resource_Id" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор ресурса</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="StartDateRange" type="xs:date">
+                            <xs:annotation>
+                                <xs:documentation>Дата, с которой необходимо начать формировать расписание</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="EndDateRange" type="xs:date">
+                            <xs:annotation>
+                                <xs:documentation>Дата, до которой необходимо формировать расписание</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetHouseCallScheduleInfoResponse">
+                <xs:annotation>
+                    <xs:documentation>Расписания вызовов выбранного медицинского специалиста</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Schedule">
+                            <xs:annotation>
+                                <xs:documentation>Расписание ресурса</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Slots">
+                                        <xs:annotation>
+                                            <xs:documentation>Параметры слотов</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element minOccurs="1" name="Slot_Id" type="m:guid">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Идентификатор слота</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element minOccurs="1" name="VisitTime" type="xs:dateTime">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Дата и время вызова врача</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element minOccurs="1" name="Duration" type="xs:int">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Длительность интервала в минутах</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Error" type="m:ErrorDetail" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateHouseCallRequest">
+                <xs:annotation>
+                    <xs:documentation>Создание записи вызова врача на дом</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Slot_Id" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор слота</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateHouseCallResponse">
+                <xs:annotation>
+                    <xs:documentation>Результат создания записи вызова врача на дом</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="Session_ID" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор сессии</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="HC_Id_Rmis" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор записи вызова на дом в РМИСИС</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element maxOccurs="1" minOccurs="1" name="Status_Code">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="0">
+                                        <xs:annotation>
+                                            <xs:documentation>ОК</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                    <xs:enumeration value="1">
+                                        <xs:annotation>
+                                            <xs:documentation>Внутренняя ошибка системы</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Comment" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Состояние статуса записи</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Slot_Id" type="m:guid">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор слота</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="VisitTime" type="xs:dateTime">
+                            <xs:annotation>
+                                <xs:documentation>Дата и время вызова врача</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Duration" type="xs:int">
+                            <xs:annotation>
+                                <xs:documentation>Длительность интервала в минутах</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CancelHouseCallRequest">
+                <xs:annotation>
+                    <xs:documentation>Отмена ранее созданной заявки на вызов врача на дом</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="HC_Id_Rmis" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор записи вызова на дом в РМИСИС</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CancelHouseCallResponse">
+                <xs:annotation>
+                    <xs:documentation>Результат отмены записи на прием к врачу</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="HC_Id_Rmis" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор записи на прием в РМИСИС</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Status_Code">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="0">
+                                        <xs:annotation>
+                                            <xs:documentation>успешное завершение операции</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                    <xs:enumeration value="1">
+                                        <xs:annotation>
+                                            <xs:documentation>внутренняя ошибка системы</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                    <xs:enumeration value="2">
+                                        <xs:annotation>
+                                            <xs:documentation>отказ в проведении операции</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element minOccurs="1" name="Comment" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Состояние статуса отмены</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </types>
+    <message name="CancelHouseCallRequest">
+        <part name="parameter" element="m:CancelHouseCallRequest" />
+    </message>
+    <message name="CreateHouseCallRequest">
+        <part name="parameter" element="m:CreateHouseCallRequest" />
+    </message>
+    <message name="GetValidatePatientInfoRequest">
+        <part name="parameter" element="m:GetValidatePatientInfoRequest" />
+    </message>
+    <message name="CreateHouseCallResponse">
+        <part name="parameter" element="m:CreateHouseCallResponse" />
+    </message>
+    <message name="CancelHouseCallResponse">
+        <part name="parameter" element="m:CancelHouseCallResponse" />
+    </message>
+    <message name="GetHouseCallScheduleInfoRequest">
+        <part name="parameter" element="m:GetHouseCallScheduleInfoRequest" />
+    </message>
+    <message name="GetHouseCallScheduleInfoResponse">
+        <part name="parameter" element="m:GetHouseCallScheduleInfoResponse" />
+    </message>
+    <message name="GetValidatePatientInfoResponse">
+        <part name="parameter" element="m:GetValidatePatientInfoResponse" />
+    </message>
+    <portType name="HouseCallWebService">
+        <operation name="GetValidatePatientInfo">
+            <input message="m:GetValidatePatientInfoRequest" />
+            <output message="m:GetValidatePatientInfoResponse" />
+        </operation>
+        <operation name="GetHouseCallScheduleInfo">
+            <input message="m:GetHouseCallScheduleInfoRequest" />
+            <output message="m:GetHouseCallScheduleInfoResponse" />
+        </operation>
+        <operation name="CreateHouseCall">
+            <input message="m:CreateHouseCallRequest" />
+            <output message="m:CreateHouseCallResponse" />
+        </operation>
+        <operation name="CancelHouseCall">
+            <input message="m:CancelHouseCallRequest" />
+            <output message="m:CancelHouseCallResponse" />
+        </operation>
+    </portType>
+    <binding name="HouseCallPortal" type="m:HouseCallWebService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="GetValidatePatientInfo">
+            <soap:operation soapAction="GetValidatePatientInfo" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="GetHouseCallScheduleInfo">
+            <soap:operation soapAction="GetHouseCallScheduleInfo" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="CreateHouseCall">
+            <soap:operation soapAction="CreateHouseCall" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="CancelHouseCall">
+            <soap:operation soapAction="CancelHouseCall" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+    </binding>
+    <service name="HouseCallPortal">
+        <port name="HouseCallWebService" binding="m:HouseCallPortal">
+            <soap:address location="http://test-api2-fer.rt-eu.ru/concentrator-hc/houseCall" />
+        </port>
+    </service>
+</definitions>
