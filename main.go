@@ -2,25 +2,35 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"io"
 )
 
 func main() {
 
 	port := getPort()
-	http.HandleFunc("/", printWSDL)
+	http.HandleFunc("/", printPage)
 
 	fmt.Printf("Try to start server on port: %s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
-func printWSDL(w http.ResponseWriter, r *http.Request) {
+func printPage(w http.ResponseWriter, r *http.Request) {
+	file := ""
 	printlog(r)
-	f, err := os.Open("xml/vvd.wsdl")
+	if r.Method == "GET" {
+		if isMain(r) {
+			file = "res/index.html"
+		} else if isWSDL(r) {
+			file = "xml/vvd.wsdl"
+		} else {
+			file = "res/error.html"
+		}
+	}
+	f, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,6 +45,19 @@ func getPort() string {
 	return ":3000"
 }
 
+func isMain(r *http.Request) bool {
+	return r.URL.Path == "/"
+}
+
+func isWSDL(r *http.Request) bool {
+	if r.URL.Path == "/houseCall" {
+		q := r.URL.Query()
+		_, ok := q["wsdl"]
+		return ok
+	}
+	return false
+}
+
 func printlog(r *http.Request) {
 	t := time.Now().Format(time.ANSIC)
 	m := r.Method
@@ -42,4 +65,3 @@ func printlog(r *http.Request) {
 	p := r.URL.Path
 	fmt.Fprintf(os.Stdout, "[%s]\t%s\t%s\t%s\n", t, m, h, p)
 }
-
