@@ -12,29 +12,26 @@ import (
 func main() {
 
 	port := getPort()
-	http.HandleFunc("/", printPage)
+	http.HandleFunc("/", infoPage)
+	http.HandleFunc("/houseCall", soapService)
 
 	fmt.Printf("Try to start server on port: %s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
-func printPage(w http.ResponseWriter, r *http.Request) {
-	file := ""
+func infoPage(w http.ResponseWriter, r *http.Request) {
 	printlog(r)
-	if r.Method == "GET" {
-		if isMain(r) {
-			file = "res/index.html"
-		} else if isWSDL(r) {
-			file = "xml/vvd.wsdl"
-		} else {
-			file = "res/error.html"
-		}
+	sendFile("res/index.html", w)
+}
+func soapService(w http.ResponseWriter, r *http.Request) {
+	printlog(r)
+	if r.Method == "GET" && isWSDL(r) {
+		sendFile("xml/vvd.wsdl", w)
+	} else if r.Method == "POST" {
+		sendData("This is POST request", w)
+	} else {
+		sendFile("res/error.html", w)
 	}
-	f, err := os.Open(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-	io.Copy(w, f)
 }
 
 func getPort() string {
@@ -45,10 +42,6 @@ func getPort() string {
 	return ":3000"
 }
 
-func isMain(r *http.Request) bool {
-	return r.URL.Path == "/"
-}
-
 func isWSDL(r *http.Request) bool {
 	if r.URL.Path == "/houseCall" {
 		q := r.URL.Query()
@@ -56,6 +49,18 @@ func isWSDL(r *http.Request) bool {
 		return ok
 	}
 	return false
+}
+
+func sendFile(file string, w http.ResponseWriter) {
+	f, err := os.Open(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	io.Copy(w, f)
+}
+
+func sendData(data string, w http.ResponseWriter) {
+	fmt.Fprintf(w, "%q", data)
 }
 
 func printlog(r *http.Request) {
