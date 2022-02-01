@@ -28,7 +28,10 @@ func soapService(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" && isWSDL(r) {
 		sendFile("xml/vvd.wsdl", w)
 	} else if r.Method == "POST" {
-		sendData("This is POST request", w)
+		GetValidatePatientInfo(w, r)
+		GetHouseCallScheduleInfo(w, r)
+		CreateHouseCall(w, r)
+		CancelHouseCall(w, r)
 	} else {
 		sendFile("res/error.html", w)
 	}
