@@ -27,14 +27,14 @@
  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="BodyID-ddb62feb-cf5f-4fd6-a529-029c80d27578">
   <er:GetValidatePatientInfoResponse>
    <Session_ID>93615725-d115-478c-9f57-8487a7f7ca7d</Session_ID>
-   <Patient_Id>{{Patient_Id}}</Patient_Id>
-   <MO_Id>{{MO_Id}}</MO_Id>
-   <MO_OID>{{MO_OID}}</MO_OID>
-   <MO_Name>{{MO_Name}}</MO_Name>
-   <MO_Address>{{MO_Address}}</MO_Address>
-   <MO_Phone>{{MO_Phone}}</MO_Phone>
-   <Resource_Id>{{Resource_Id}}</Resource_Id>
-   <Resource_Name>{{Resource_Name}}</Resource_Name>
+   <Patient_Id>{{PatientID}}</Patient_Id>
+   <MO_Id>{{MOID}}</MO_Id>
+   <MO_OID>{{MOOID}}</MO_OID>
+   <MO_Name>{{MOName}}</MO_Name>
+   <MO_Address>{{MOAddress}}</MO_Address>
+   <MO_Phone>{{MOPhone}}</MO_Phone>
+   <Resource_Id>{{ResourceID}}</Resource_Id>
+   <Resource_Name>{{ResourceName}}</Resource_Name>
    <Error>
     <errorDetail>
      <errorCode>0</errorCode>

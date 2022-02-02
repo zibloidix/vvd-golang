@@ -14,6 +14,17 @@ create table hospitals (
 	phone varchar(128)
 );
 
+-- Таблица участков прикрепления к МО
+create table districts (
+	id integer primary key autoincrement,
+	city varchar(128),
+	street varchar(128),
+	house integer,
+	apartment integer,
+	code integer,
+	hospital_id integer,
+	foreign key(hospital_id) references hospitals(id)
+);
 
 -- Таблица специальностей
 create table specs (
@@ -69,6 +80,7 @@ create table slots (
 	foreign key(doctor_id) references doctors(id)
 );
 
+-- Таблица для храненеия логов
 create table logs (
 	id integer primary key autoincrement,
 	session_id integer,
@@ -97,5 +109,39 @@ insert into specs (code, name) values (109, "врач-терапевт");
 insert into doctors (hospital_id, spec_id, snils, doctor_code, name) values (1, 1, "27377963737", "489744019", "Роберт Михайловч Чейз");
 insert into doctors (hospital_id, spec_id, snils, doctor_code, name) values (2, 1, "12830301517", "272543789", "Эллисон Борисовна Кэмерон");
 
+-- Добавление участков прикрепления
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Коммунистический проспект", 1, 10, 11, 1);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Коммунистический проспект", 2, 20, 11, 1);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Коммунистический проспект", 3, 30, 11, 1);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Коммунистический проспект", 4, 40, 11, 1);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Коммунистический проспект", 5, 50, 11, 1);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 1, 10, 22, 2);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 2, 20, 22, 2);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 3, 30, 22, 2);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 4, 40, 22, 2);
+insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 5, 50, 22, 2);
 
+-- GetValidatePatientInfo
+select h.id			MOID,
+       h.oid		MOOID,
+       h.name		MOName,
+       h.address	MOAddress,
+       h.phone		MOPhone,
+       d.snils || "." || d.doctor_code		ResourceID,
+       d.name  || " (" || s.name  || ")" 	ResourceName
+  from hospitals h
+  join doctors d
+    on d.hospital_id = h.id
+  join specs s
+    on d.spec_id = s.id
+  join districts ds
+    on ds.hospital_id = h.id
+ where 1=1
+   and ds.city = 'Южно-Сахалинск'
+   and ds.street like '%Мира%'
+   and ds.house = 1;
+ 
+ 
+ 
+ 
 
