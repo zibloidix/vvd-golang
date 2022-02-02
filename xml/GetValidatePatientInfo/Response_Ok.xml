@@ -28,13 +28,13 @@
   <er:GetValidatePatientInfoResponse>
    <Session_ID>93615725-d115-478c-9f57-8487a7f7ca7d</Session_ID>
    <Patient_Id>{{Patient_Id}}</Patient_Id>
-   <MO_Id>240534</MO_Id>
-   <MO_OID>1.2.643.5.1.13.3.25.9.5</MO_OID>
-   <MO_Name>Городская больница №2</MO_Name>
-   <MO_Address>Респ. Татарстан, г. Казань, Ул. Курчатова, д. 10</MO_Address>
-   <MO_Phone>8 (843) 235-01-02</MO_Phone>
-   <Resource_Id>12363310036.590057618</Resource_Id>
-   <Resource_Name>Иванов Иван Иванович(врач-терапевт)</Resource_Name>
+   <MO_Id>{{MO_Id}}</MO_Id>
+   <MO_OID>{{MO_OID}}</MO_OID>
+   <MO_Name>{{MO_Name}}</MO_Name>
+   <MO_Address>{{MO_Address}}</MO_Address>
+   <MO_Phone>{{MO_Phone}}</MO_Phone>
+   <Resource_Id>{{Resource_Id}}</Resource_Id>
+   <Resource_Name>{{Resource_Name}}</Resource_Name>
    <Error>
     <errorDetail>
      <errorCode>0</errorCode>

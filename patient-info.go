@@ -2,9 +2,22 @@ package main
 
 import (
 	"os"
+	"database/sql"
+	"github.com/mattn/go-sqlite3"
 	"github.com/aymerick/raymond"
 	"net/http"
 )
+
+type PatientInfoResponse struct {
+	PatientID int
+	MOID int
+	MOOID int
+	MOName string
+	MOAddress string
+	MOPhone string
+	ResourceID string
+	ResourceName string
+}
 
 func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	action := r.Header.Get("soapaction")
