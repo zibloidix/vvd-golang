@@ -1,8 +1,17 @@
+/* 
+	Данный дайл содержит запросы для создания структуры базы данных. 
+    Запросы для отдельных операций, которые вынесены в отдельные файлы 
+    в папке ./sql могут отличаться от тех, что указаны тут
+*/
+
+-- Удаление таблиц
 drop table hospitals;
+drop table districts;
 drop table specs;
 drop table doctors;
 drop table patients;
 drop table sessions;
+drop table slots;
 drop table logs;
 
 -- Таблица медицинских организаций
@@ -122,7 +131,8 @@ insert into districts (city, street, house, apartment, code, hospital_id) values
 insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 5, 50, 22, 2);
 
 -- GetValidatePatientInfo
-select h.id			MOID,
+select 1001 PatientID,
+       h.id			MOID,
        h.oid		MOOID,
        h.name		MOName,
        h.address	MOAddress,

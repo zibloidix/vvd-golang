@@ -3,11 +3,10 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/aymerick/raymond"
 	_ "github.com/mattn/go-sqlite3"
 	"net/http"
 	"os"
-	"strconv"
+	"text/template"
 )
 
 type PatientInfoResponse struct {
@@ -26,10 +25,10 @@ func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	if action == "GetValidatePatientInfo" {
 		data, _ := os.ReadFile("./xml/GetValidatePatientInfo/Response_Ok.xml")
 		p := getSQLData()
-		ctx := getCtx(p)
-		fmt.Println(ctx)
-		render, _ := raymond.Render(string(data), ctx)
-		sendData(render, w)
+		t := template.New("tmp")
+		t.Parse(string(data))
+		w.Header().Add("Content-Type", "application/xml")
+		t.Execute(w, p)
 	}
 }
 
@@ -38,8 +37,12 @@ func getSQLData() PatientInfoResponse {
 	if err != nil {
 		panic(err)
 	}
+	sqlFile, err := os.ReadFile("./sql/GetValidatePatientInfo.sql")
+	if err != nil {
+		panic(err)
+	}
 	defer db.Close()
-	row := db.QueryRow("select 1001 PatientID, h.id   MOID, h.oid  MOOID, h.name  MOName, h.address MOAddress, h.phone  MOPhone, d.snils || '.' || d.doctor_code  ResourceID, d.name  || ' (' || s.name  || ')'  ResourceName from hospitals h join doctors d  on d.hospital_id = h.id join specs s  on d.spec_id = s.id join districts ds  on ds.hospital_id = h.id where 1=1 and ds.city = 'Южно-Сахалинск' and ds.street like '%Мира%' and ds.house = 1;")
+	row := db.QueryRow(string(sqlFile), "Южно-Сахалинск", "Мира", 1)
 	if err != nil {
 		panic(err)
 	}
@@ -50,18 +53,4 @@ func getSQLData() PatientInfoResponse {
 	}
 	fmt.Println(p)
 	return p
-}
-
-func getCtx(p PatientInfoResponse) map[string]string {
-	ctx := map[string]string{
-		"PatientID":    strconv.Itoa(p.PatientID),
-		"MOID":         strconv.Itoa(p.MOID),
-		"MOOID":        p.MOOID,
-		"MOName":       p.MOName,
-		"MOAddress":    p.MOAddress,
-		"MOPhone":      p.MOPhone,
-		"ResourceID":   p.ResourceID,
-		"ResourceName": p.ResourceName,
-	}
-	return ctx
 }
