@@ -129,15 +129,15 @@ type CancelHouseCallRequest struct {
 	HC_Id_Rmis string   `xml:"HC_Id_Rmis"`
 }
 
-func ParseSoapEnvelope(body io.ReadCloser) Envelope {
+func ParseSoapEnvelope(body io.ReadCloser) (Envelope, error) {
+	var env Envelope
 	data, err := ioutil.ReadAll(body)
 	if err != nil {
-		panic(err)
+		return env, err
 	}
-	var Envelope Envelope
-	err = xml.Unmarshal(data, &Envelope)
+	err = xml.Unmarshal(data, &env)
 	if err != nil {
-		panic(err)
+		return env, err
 	}
-	return Envelope
+	return env, nil
 }
