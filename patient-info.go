@@ -24,8 +24,8 @@ func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	action := r.Header.Get("soapaction")
 	if action == "GetValidatePatientInfo" {
 		data, _ := os.ReadFile("./xml/GetValidatePatientInfo/Response_Ok.xml")
-		p := getSQLData()
 		e := ParseSoapEnvelope(r.Body)
+		p := getSQLData(e)
 		fmt.Println(e)
 		t := template.New("tmp")
 		t.Parse(string(data))
@@ -34,7 +34,7 @@ func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getSQLData() PatientInfoResponse {
+func getSQLData(e Envelope) PatientInfoResponse {
 	db, err := sql.Open("sqlite3", "./db/vvd.db")
 	if err != nil {
 		panic(err)
@@ -44,7 +44,10 @@ func getSQLData() PatientInfoResponse {
 		panic(err)
 	}
 	defer db.Close()
-	row := db.QueryRow(string(sqlFile), "Южно-Сахалинск", "Мира", 1)
+	city := e.Body.GetValidatePatientInfoRequest.Adr_City
+	street := e.Body.GetValidatePatientInfoRequest.Adr_Street
+	house := e.Body.GetValidatePatientInfoRequest.Adr_House
+	row := db.QueryRow(string(sqlFile), city, street, house)
 	if err != nil {
 		panic(err)
 	}

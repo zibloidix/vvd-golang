@@ -102,10 +102,10 @@ type GetValidatePatientInfoRequest struct {
 	Adr_Street            string `xml:"Adr_Street"`
 	Adr_Additional_Area   string `xml:"Adr_Additional_Area"`
 	Adr_Additional_Street string `xml:"Adr_Additional_Street"`
-	Adr_House             string `xml:"Adr_House"`
-	Adr_Housing           string `xml:"Adr_Housing"`
-	Adr_Structure         string `xml:"Adr_Structure"`
-	Adr_Apartment         string `xml:"Adr_Apartment"`
+	Adr_House             int    `xml:"Adr_House"`
+	Adr_Housing           int    `xml:"Adr_Housing"`
+	Adr_Structure         int    `xml:"Adr_Structure"`
+	Adr_Apartment         int    `xml:"Adr_Apartment"`
 	Adr_Post_Index        string `xml:"Adr_Post_Index"`
 	Reason_Task           string `xml:"Reason_Task"`
 }
