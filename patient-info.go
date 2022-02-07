@@ -25,6 +25,8 @@ func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	if action == "GetValidatePatientInfo" {
 		data, _ := os.ReadFile("./xml/GetValidatePatientInfo/Response_Ok.xml")
 		p := getSQLData()
+		e := ParseSoapEnvelope(r.Body)
+		fmt.Println(e)
 		t := template.New("tmp")
 		t.Parse(string(data))
 		w.Header().Add("Content-Type", "application/xml")
