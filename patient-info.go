@@ -19,6 +19,7 @@ const (
 )
 
 type PatientInfoResponse struct {
+	SessionID    string
 	PatientID    int
 	MOID         int
 	MOOID        string
@@ -46,6 +47,7 @@ func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			templateFile = respBase + respErr02
 		}
+		setSessionID(&patientInfo, envelope)
 		data, err := os.ReadFile(templateFile)
 		if err != nil {
 			panic(err)
@@ -82,4 +84,8 @@ func getParamsFromRequest(e Envelope) (string, string, int) {
 	street := e.Body.GetValidatePatientInfoRequest.Adr_Street
 	house := e.Body.GetValidatePatientInfoRequest.Adr_House
 	return city, street, house
+}
+
+func setSessionID(p *PatientInfoResponse, e Envelope) {
+	p.SessionID = e.Body.GetValidatePatientInfoRequest.Session_ID
 }
