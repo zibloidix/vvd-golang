@@ -9,15 +9,6 @@ import (
 	"text/template"
 )
 
-const (
-	respBase  = "./xml/GetValidatePatientInfo/"
-	respOk    = "Response_Ok.xml"
-	respErr01 = "Response_Error_01.xml"
-	respErr02 = "Response_Error_02.xml"
-	respErr03 = "Response_Error_03.xml"
-	respErr04 = "Response_Error_04.xml"
-)
-
 type PatientInfoResponse struct {
 	SessionID    string
 	PatientID    int
@@ -33,19 +24,19 @@ type PatientInfoResponse struct {
 func GetValidatePatientInfo(w http.ResponseWriter, r *http.Request) {
 	action := r.Header.Get("soapaction")
 	if action == "GetValidatePatientInfo" {
-		templateFile := respBase + respOk
+		templateFile := respBase + action + "/" + respOk
 		envelope, err := ParseSoapEnvelope(r.Body)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			templateFile = respBase + respErr02
+			templateFile = respBase + action + "/" + respErr02
 		}
 		patientInfo, err := getSQLData(envelope)
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusInternalServerError)
-			templateFile = respBase + respErr01
+			templateFile = respBase + action + "/" + respErr01
 		} else if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			templateFile = respBase + respErr02
+			templateFile = respBase + action + "/" + respErr02
 		}
 		setSessionID(&patientInfo, envelope)
 		data, err := os.ReadFile(templateFile)

@@ -9,6 +9,15 @@ import (
 	"time"
 )
 
+const (
+	respBase  = "./xml/"
+	respOk    = "Response_Ok.xml"
+	respErr01 = "Response_Error_01.xml"
+	respErr02 = "Response_Error_02.xml"
+	respErr03 = "Response_Error_03.xml"
+	respErr04 = "Response_Error_04.xml"
+)
+
 func main() {
 
 	port := getPort()
