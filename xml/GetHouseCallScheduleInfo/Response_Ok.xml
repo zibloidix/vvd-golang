@@ -26,18 +26,15 @@
  </soapenv:Header>
  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="BodyID-d0f7b837-d40d-4c07-bfff-14f64706c05d">
   <er:GetHouseCallScheduleInfoResponse>
-   <Session_ID>93615725-d115-478c-9f57-8487a7f7ca7d</Session_ID>
+   <Session_ID>{{.SessionID}}</Session_ID>
    <Schedule>
+    {{range .Schedule.Slots}}
     <Slots>
-     <Slot_Id>04a1caa5-e4b11fb-e4b11fb-20150814080000</Slot_Id>
-     <VisitTime>2015-08-14T08:00:00.000</VisitTime>
-     <Duration>120</Duration>
+     <Slot_Id>{{.SlotID}}</Slot_Id>
+     <VisitTime>{{.VisitTime}}</VisitTime>
+     <Duration>{{.Duration}}</Duration>
     </Slots>
-    <Slots>
-     <Slot_Id>04a1caa5-e4b11fb-e4b11fb-20150814090000</Slot_Id>
-     <VisitTime>2015-08-15T09:00:00.000</VisitTime>
-     <Duration>180</Duration>
-    </Slots>
+    {{end}}
    </Schedule>
    <Error>
     <errorDetail>
