@@ -133,27 +133,6 @@ insert into districts (city, street, house, apartment, code, hospital_id) values
 insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 4, 40, 22, 2);
 insert into districts (city, street, house, apartment, code, hospital_id) values ("Южно-Сахалинск", "Проспект Мира", 5, 50, 22, 2);
 
--- GetValidatePatientInfo
-select 1001 PatientID,
-       h.id			MOID,
-       h.oid		MOOID,
-       h.name		MOName,
-       h.address	MOAddress,
-       h.phone		MOPhone,
-       d.snils || "." || d.doctor_code		ResourceID,
-       d.name  || " (" || s.name  || ")" 	ResourceName
-  from hospitals h
-  join doctors d
-    on d.hospital_id = h.id
-  join specs s
-    on d.spec_id = s.id
-  join districts ds
-    on ds.hospital_id = h.id
- where 1=1
-   and ds.city = 'Южно-Сахалинск'
-   and ds.street like '%Мира%'
-   and ds.house = 1;
-
 -- Добавление слотов для первого врача
 insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-01 10:00:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-01 10:30:00', 30);
@@ -177,5 +156,40 @@ insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(r
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 13:30:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 14:00:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 14:30:00', 30);
+
+-- GetValidatePatientInfo
+select 1001 PatientID,
+       h.id			MOID,
+       h.oid		MOOID,
+       h.name		MOName,
+       h.address	MOAddress,
+       h.phone		MOPhone,
+       d.snils || "." || d.doctor_code		ResourceID,
+       d.name  || " (" || s.name  || ")" 	ResourceName
+  from hospitals h
+  join doctors d
+    on d.hospital_id = h.id
+  join specs s
+    on d.spec_id = s.id
+  join districts ds
+    on ds.hospital_id = h.id
+ where 1=1
+   and ds.city = 'Южно-Сахалинск'
+   and ds.street like '%Мира%'
+   and ds.house = 1;
+  
+-- GetHouseCallScheduleInfo
+select s.id SlotID,
+       s.visit_date VisitTime,
+       s.duration Duration
+  from slots s
+  join doctors d 
+    on s.doctor_id = d.id 
+ where 1=1
+   and s.patient_id is null
+   and snils = '27377963737'
+   and doctor_code = '489744019'; 
+
+ 
 
 
