@@ -179,7 +179,7 @@ select 1001 PatientID,
    and ds.house = 1;
   
 -- GetHouseCallScheduleInfo
-select s.id SlotID,
+select s.uuid SlotID,
        s.visit_date VisitTime,
        s.duration Duration
   from slots s
@@ -188,7 +188,9 @@ select s.id SlotID,
  where 1=1
    and s.patient_id is null
    and snils = '27377963737'
-   and doctor_code = '489744019'; 
+   and doctor_code = '489744019'
+   and s.visit_date > '2022-12-01 11:00:00'
+   and s.visit_date < '2022-12-01 14:00:00';
 
  
 
