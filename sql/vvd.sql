@@ -145,7 +145,62 @@ insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(r
 insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-01 14:00:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-01 14:30:00', 30);
 
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-02 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-03 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-04 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (1, lower(hex(randomblob(16))), '2022-12-05 14:30:00', 30);
+
 -- Добавление слотов для второго врача
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (3, lower(hex(randomblob(16))), '2022-12-01 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-01 14:30:00', 30);
+
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 10:00:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 10:30:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (3, lower(hex(randomblob(16))), '2022-12-02 11:00:00', 30);
@@ -156,6 +211,39 @@ insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(r
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 13:30:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 14:00:00', 30);
 insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-02 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (3, lower(hex(randomblob(16))), '2022-12-03 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-03 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (3, lower(hex(randomblob(16))), '2022-12-04 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-04 14:30:00', 30);
+
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 10:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 10:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (3, lower(hex(randomblob(16))), '2022-12-05 11:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 11:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 12:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 12:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 13:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 13:30:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 14:00:00', 30);
+insert into slots (doctor_id, uuid, visit_date, duration) values (2, lower(hex(randomblob(16))), '2022-12-05 14:30:00', 30);
 
 -- GetValidatePatientInfo
 select 1001 PatientID,
@@ -189,8 +277,8 @@ select s.uuid SlotID,
    and s.patient_id is null
    and snils = '27377963737'
    and doctor_code = '489744019'
-   and s.visit_date > '2022-12-01 11:00:00'
-   and s.visit_date < '2022-12-01 14:00:00';
+   and s.visit_date >= '2022-12-01' || ' 00:00:00'
+   and s.visit_date <= '2022-12-05' || ' 23:59:59';
 
  
 

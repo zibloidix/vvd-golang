@@ -8,5 +8,5 @@ select s.uuid SlotID,
    and s.patient_id is null
    and snils = $1 
    and doctor_code = $2
-   and s.visit_date > $3
-   and s.visit_date < $4
+   and s.visit_date >= $3 || ' 00:00:00'
+   and s.visit_date <= $4 || ' 23:59:59'
