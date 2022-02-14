@@ -89,6 +89,7 @@ create table slots (
 	uuid varchar(128),
 	visit_date datetime,
 	duration integer,
+	comment varchar(128),
 	foreign key(doctor_id) references doctors(id),
 	foreign key(patient_id) references patients(id)
 );
@@ -280,9 +281,30 @@ select s.uuid SlotID,
    and doctor_code = '489744019'
    and s.visit_date >= '2022-12-01' || ' 00:00:00'
    and s.visit_date <= '2022-12-05' || ' 23:59:59';
-  
-  select lower(hex(randomblob(5)));
 
+-- Вывод полей для ответа CreateHouseCallResponse
+select s.rmis_id RmisID,
+       s.comment Comment,
+       s.uuid SlotID,
+       s.visit_date VisitTime,
+       s.duration Duration
+  from slots s
+ where uuid = 'a9448a3dcc05cd231b570011327bc212';
+
+-- Занятие слота
+update slots 
+   set patient_id = 1
+ where uuid = 'a9448a3dcc05cd231b570011327bc212';
+  
+-- Освобождение слота
+update slots
+   set patient_id = NULL
+ where uuid = 'a9448a3dcc05cd231b570011327bc212';
  
+select * 
+  from slots
+ where uuid = 'a9448a3dcc05cd231b570011327bc212'
+   
+
 
 
