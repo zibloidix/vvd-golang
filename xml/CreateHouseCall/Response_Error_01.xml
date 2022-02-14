@@ -27,12 +27,12 @@
  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="BodyID-e7907d53-e8f6-4684-8878-0be25f959a2f">
   <er:CreateHouseCallResponse>
    <Session_ID>93615725-d115-478c-9f57-8487a7f7ca7d</Session_ID>
-   <HC_Id_Rmis/>
+   <HC_Id_Rmis>{{.RmisID}}</HC_Id_Rmis>
    <Status_Code>1</Status_Code>
    <Comment>Внутренняя ошибка системы</Comment>
-   <Slot_Id>04a1caa5-e4b11fb-e4b11fb-20150814080000</Slot_Id>
-   <VisitTime>2015-08-14T08:00:00.000</VisitTime>
-   <Duration>120</Duration>
+   <Slot_Id>{{.SlotID}}</Slot_Id>
+   <VisitTime>{{.VisitTime}}</VisitTime>
+   <Duration>{{.Duration}}</Duration>
   </er:CreateHouseCallResponse>
  </soapenv:Body>
 </soapenv:Envelope>
