@@ -304,7 +304,16 @@ update slots
 select * 
   from slots
  where uuid = 'a9448a3dcc05cd231b570011327bc212'
-   
+ 
+select *
+  from slots
+ where rmis_id = '2a9915ab5c';
+
+select rmis_id RmisID
+  from slots
+  where 1=1
+    and rmis_id = '2a9915ab5c'
+    and patient_id is not null;   
 
 
 

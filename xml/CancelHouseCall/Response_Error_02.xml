@@ -26,7 +26,7 @@
  </soapenv:Header>
  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="BodyID-ad1c0f42-026f-4967-a936-c9da77622c63">
   <er:CancelHouseCallResponse>
-   <HC_Id_Rmis>471696489</HC_Id_Rmis>
+   <HC_Id_Rmis>{{.RmisID}}</HC_Id_Rmis>
    <Status_Code>2</Status_Code>
    <Comment>Отказ в проведении операции</Comment>
   </er:CancelHouseCallResponse>
