@@ -1,18 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"strings"
 	"database/sql"
+	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"net/http"
 	"os"
+	"strings"
 	"text/template"
 )
 
 type ScheduleInfoResponse struct {
 	SessionID string
-	Schedule Schedule 
+	Schedule  Schedule
 }
 
 type Schedule struct {
@@ -20,9 +20,9 @@ type Schedule struct {
 }
 
 type Slot struct {
-	SlotID string
+	SlotID    string
 	VisitTime string
-	Duration int
+	Duration  int
 }
 
 func GetHouseCallScheduleInfo(w http.ResponseWriter, r *http.Request) {
@@ -76,7 +76,7 @@ func getSQLDataSchedule(e Envelope) (ScheduleInfoResponse, error) {
 	for rows.Next() {
 		slot := new(Slot)
 		err = rows.Scan(&slot.SlotID, &slot.VisitTime, &slot.Duration)
-		
+
 		fmt.Println(slot, err)
 		if err != nil {
 			return s, err

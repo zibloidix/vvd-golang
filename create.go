@@ -10,11 +10,11 @@ import (
 )
 
 type CreateHouseCallResponse struct {
-	RmisID string
-	Comment string
-	SlotID string
+	SessionID string
+	RmisID    string
+	SlotID    string
 	VisitTime string
-	Duration int
+	Duration  int
 }
 
 func CreateHouseCall(w http.ResponseWriter, r *http.Request) {
@@ -46,6 +46,7 @@ func CreateHouseCall(w http.ResponseWriter, r *http.Request) {
 func getSQLDataCreateHouseCall(e Envelope) (CreateHouseCallResponse, error) {
 	db, err := sql.Open("sqlite3", "./db/vvd.db")
 	c := CreateHouseCallResponse{}
+	c.SessionID = e.Body.CreateHouseCallRequest.Session_ID
 	if err != nil {
 		return c, err
 	}
@@ -56,7 +57,7 @@ func getSQLDataCreateHouseCall(e Envelope) (CreateHouseCallResponse, error) {
 	}
 	slotId := getParamsFromCreateHouseCallRequest(e)
 	row := db.QueryRow(string(sqlFile), slotId)
-	err = row.Scan(&c.RmisID, &c.Comment, &c.SlotID, &c.VisitTime, &c.Duration)
+	err = row.Scan(&c.RmisID, &c.SlotID, &c.VisitTime, &c.Duration)
 	if err != nil {
 		return c, err
 	}
@@ -66,4 +67,3 @@ func getSQLDataCreateHouseCall(e Envelope) (CreateHouseCallResponse, error) {
 func getParamsFromCreateHouseCallRequest(e Envelope) string {
 	return e.Body.CreateHouseCallRequest.Slot_Id
 }
-

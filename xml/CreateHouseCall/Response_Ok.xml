@@ -26,7 +26,7 @@
  </soapenv:Header>
  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="BodyID-e7907d53-e8f6-4684-8878-0be25f959a2f">
   <er:CreateHouseCallResponse>
-   <Session_ID>93615725-d115-478c-9f57-8487a7f7ca7d</Session_ID>
+   <Session_ID>{{.SessionID}}</Session_ID>
    <HC_Id_Rmis>{{.RmisID}}</HC_Id_Rmis>
    <Status_Code>0</Status_Code>
    <Comment/>
