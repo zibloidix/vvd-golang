@@ -21,17 +21,13 @@ const (
 func main() {
 
 	port := getPort()
-	http.HandleFunc("/", infoPage)
+	http.Handle("/", http.FileServer(http.Dir("./res")))
 	http.HandleFunc("/houseCall", soapService)
 
 	fmt.Printf("Try to start server on port: %s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
-func infoPage(w http.ResponseWriter, r *http.Request) {
-	printlog(r)
-	sendFile("res/index.html", w)
-}
 func soapService(w http.ResponseWriter, r *http.Request) {
 	printlog(r)
 	if r.Method == "GET" && isWSDL(r) {
